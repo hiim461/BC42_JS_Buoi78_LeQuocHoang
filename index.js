@@ -2,15 +2,42 @@ function domId(id) {
     return document.getElementById(id);
 }
 let arrNums = [];
-
+let arrNumsUndo = [];
+let arrNumsReset = [];
 domId('btnNhapSo').onclick = function () {
     arrNums.push(+domId('nhapSo').value);
     domId('arrayNumber').innerHTML = 'Mảng số: ' + arrNums;
 }
-domId('resetArray').onclick = function () {
-    arrNums.splice(0, arrNums.length);
-    domId('arrayNumber').innerHTML = 'Mời bạn nhập số ' + arrNums;
+domId('undo').onclick = function (){
+    let result = '';
+    if(arrNums.length>0){
+        arrNumsUndo.push(arrNums.pop());
+        result = 'Mảng số: ' + arrNums;
+    } else {
+        result = 'Mời bạn nhập số.';
+    }
+    domId('arrayNumber').innerHTML = result ;
 }
+domId('redo').onclick = function (){
+    if(arrNumsUndo.length>0){
+        arrNums.push(arrNumsUndo.pop());
+    }
+    domId('arrayNumber').innerHTML = 'Mảng số: ' + arrNums;
+}
+domId('resetArray').onclick = function () {
+    arrNumsReset.splice(0,arrNums.length, arrNums.splice(0, arrNums.length));
+    arrNumsUndo.splice(0,arrNumsUndo.length);
+    domId('arrayNumber').innerHTML = 'Mời bạn nhập số.';
+}
+domId('undoReset').onclick = function (){
+    arrNums = arrNumsReset;
+    if(arrNums.length>0){
+        domId('arrayNumber').innerHTML = 'Mảng số: ' + arrNums;
+    } else {
+        domId('arrayNumber').innerHTML = 'Mời bạn nhập số.';
+    }
+}
+
 //B1:
 domId('btnB1').onclick = function () {
     let total = 0;
@@ -92,15 +119,23 @@ domId('btnB5').onclick = function () {
 }
 
 //B6
+
 domId('btnB6').onclick = function (){
     let arrB6 = arrNums.slice(0,arrNums.length);
     let add1 = +domId('add1B6').value;
     let add2 = +domId('add2B6').value;
-    let num1 = arrB6[add1-1];
-    let num2 = arrB6[add2-1];
-    arrB6.splice(add1-1, 1, num2);
-    arrB6.splice(add2-1, 1, num1);
-    domId('ketQuaB6').innerHTML = arrB6;
+    let result = '';
+    if(add1>0 && add2>0){
+        let num1 = arrB6[add1-1];
+        let num2 = arrB6[add2-1];
+        arrB6.splice(add1-1, 1, num2);
+        arrB6.splice(add2-1, 1, num1);
+        result = arrB6;
+    } else {
+        result = 'Mời bạn nhập đủ thông tin.';
+    }
+    
+    domId('ketQuaB6').innerHTML = result;
 }
 
 //B7
