@@ -15,7 +15,7 @@ domId('resetArray').onclick = function () {
 domId('btnB1').onclick = function () {
     let total = 0;
     let result = '';
-    for (i = 0; i < arrNums.length; i++) {
+    for ( let i = 0; i < arrNums.length; i++) {
         if (arrNums[i] > 0) {
             total += arrNums[i];
         }
@@ -32,7 +32,7 @@ domId('btnB1').onclick = function () {
 domId('btnB2').onclick = function () {
     let count = 0;
     let result = '';
-    for (i = 0; i < arrNums.length; i++) {
+    for ( let i = 0; i < arrNums.length; i++) {
         if (arrNums[i] > 0) {
             count++;
         }
@@ -48,7 +48,7 @@ domId('btnB2').onclick = function () {
 //B3:
 domId('btnB3').onclick = function () {
     let min = arrNums[0];
-    for (i = 1; i < arrNums.length; i++) {
+    for (let i = 1; i < arrNums.length; i++) {
         if (arrNums[i] < min) {
             min = arrNums[i];
         }
@@ -113,7 +113,7 @@ domId('btnB7').onclick = function (){
 //B8
 domId('btnB8').onclick = function (){
     let result = '';
-    for (i=0; i< arrNums.length; i++){
+    for (let i=0; i< arrNums.length; i++){
         let check = checkSNT(arrNums[i]);
         if (check){
             result = 'Số nguyên tố đầu tiên trong mảng: ' + arrNums[i];
@@ -126,11 +126,11 @@ domId('btnB8').onclick = function (){
 }
 function checkSNT(a){
     let check = true;
-    if (a<=1){
+    if (a<2){
         check = false;
     } else {
         if (a>2){
-            for(i=2; i<=Math.sqrt(a); i++){
+            for(let i=2; i<=Math.sqrt(a); i++){
                 if (a%i === 0){
                     check = false;
                     break;
@@ -141,11 +141,16 @@ function checkSNT(a){
     return check;
 }
 // B9 
+let arrB9 = [];
+domId('btnNhapSoB9').onclick =function (){
+    arrB9.push(+domId('nhapSoB9').value);
+    domId('arrayB9').innerHTML = 'Mảng số: ' + arrB9;
+}
 domId('btnB9').onclick = function (){
     let count = 0;
     let result ='';
-    for (i=0; i<arrNums.length; i++){
-        if(arrNums[i]%1 ===0){
+    for ( let i=0; i<arrB9.length; i++){
+        if(arrB9[i]%1 ===0){
             count ++;
         }
     }
@@ -155,4 +160,40 @@ domId('btnB9').onclick = function (){
         result = 'Không có số nguyên trong mảng.';
     }
     domId('ketQuaB9').innerHTML = result;
+}
+
+//B10:
+domId('btnB10').onclick = function (){
+    let countAm = 0;
+    let countDuong = 0;
+    let countZero = 0;
+    let amDuong = '';
+    let result = '';
+    for (let i=0; i<arrNums.length; i++){
+        if(arrNums[i]<0){
+            countAm ++;
+        } else if (arrNums[i]>0){
+            countDuong ++;
+        } else {
+            countZero ++;
+        }
+    }
+    amDuong = B10(countAm, countDuong);
+    if(countZero>0){
+        result = amDuong + ' và có ' + countZero + ' số 0.';
+    } else {
+        result = amDuong + ' và không có số 0 nào.';
+    }
+    domId('ketQuaB10').innerHTML = result;
+}
+function B10(countAm, countDuong){
+    let result = '';
+    if(countAm<countDuong){
+        result = 'Số lượng số âm (' + countAm + ' số) < số lượng số dương (' + countDuong + ' số)';
+    } else if(countAm>countDuong){
+        result = 'Số lượng số âm (' + countAm + ' số) > số lượng số dương (' + countDuong + ' số)';
+    } else {
+        result = 'Số lượng số âm (' + countAm + ' số) = số lượng số dương (' + countDuong + ' số)';
+    }
+    return result
 }
