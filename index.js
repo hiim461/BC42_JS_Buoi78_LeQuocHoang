@@ -184,16 +184,21 @@ domId('btnNhapSoB9').onclick =function (){
 domId('btnB9').onclick = function (){
     let count = 0;
     let result ='';
-    for ( let i=0; i<arrB9.length; i++){
-        if(arrB9[i]%1 ===0){
-            count ++;
+    if (arrB9.length>0){
+        for ( let i=0; i<arrB9.length; i++){
+            if(arrB9[i]%1 ===0){
+                count ++;
+            }
         }
-    }
-    if(count>0){
-        result = 'Có tất cả ' + count + ' số nguyên trong mảng.'
+        if(count>0){
+            result = 'Có tất cả ' + count + ' số nguyên trong mảng.'
+        } else {
+            result = 'Không có số nguyên trong mảng.';
+        }
     } else {
-        result = 'Không có số nguyên trong mảng.';
+        result = 'Mời bạn nhập số.'
     }
+ 
     domId('ketQuaB9').innerHTML = result;
 }
 
